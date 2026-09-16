@@ -92,7 +92,21 @@
 
     <button class="update-btn">UPDATE QTY</button>
     <button class="remove-btn">REMOVE</button>
+
+    <div class="cart-total">
+        <h2> Total: $<span id = "total">0.00</span></h2>
+    </div>
+
+    <h2>Select Payment Option</h2>
+    <div id="gpay"></div>
 </div>
+
+
+<!-- Local Google Pay Script -->
+<script src="gpay.js"></script>
+<!-- Google Pay JavaScript Library -->
+<script async src="https://pay.google.com/gp/p/js/pay.js" onload="onGooglePayLoaded()"></script>
+
 
 </body>
 </html>
