@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Billing Information</title>
+</head>
+<body style="font-family: sans-serif; margin: 20px;">
+
+    <h2>Provide Billing Information</h2>
+
+    <form id="billing-form" action="#" method="POST">
+        <!-- Billing Address Section -->
+        <h3>Billing Address</h3>
+        
+        <p>
+            <label>First name:</label><br>
+            <input type="text" name="firstname" required>
+        </p>
+
+        <p>
+            <label>Last name:</label><br>
+            <input type="text" name="lastname" required>
+        </p>
+
+        <p>
+            <label>Username:</label><br>
+            <input type="text" name="username"required>
+        </p>
+
+        <p>
+            <label>Email (Optional):</label><br>
+            <input type="email" name="email">
+        </p>
+
+        <p>
+            <label>Address:</label><br>
+            <input type="text" name="address" required>
+        </p>
+
+        <p>
+            <label>Address 2 (Optional):</label><br>
+            <input type="text" name="address2" >
+        </p>
+
+        <p>
+            <label>Country:</label>
+            <select name="country" required>
+                <option value="">Choose...</option>
+                <option value="AU">Australia</option>
+            </select>
+
+            <label>State:</label>
+            <select name="state" required>
+                <option value="">Choose...</option>
+                <option value="VIC">VIC</option>
+            </select>
+
+            <label>Zip:</label>
+            <input type="text" name="zip" size="10" required>
+        </p>
+
+        <p>
+            <input type="checkbox" id="same-address">
+            <label for="same-address">Shipping address is the same as my billing address</label>
+        </p>
+
+        <p>
+            <input type="checkbox" id="save-info">
+            <label for="save-info">Save this information for next time</label>
+        </p>
+
+        <hr>
+
+        <!-- Payment Options Section -->
+        <h3>Select A Payment Option</h3>
+
+        <p>
+            <input type="radio" id="visa" name="payment" checked>
+            <label for="visa"> Visa</label>
+        </p>
+
+        <p>
+            <input type="radio" id="mastercard" name="payment">
+            <label for="mastercard"> MasterCard</label>
+        </p>
+
+        <p>
+            <input type="radio" id="paypal" name="payment">
+            <label for="paypal"> PayPal</label>
+        </p>
+
+        <p>
+            <input type="radio" id="gpay-radio" name="payment">
+            <label for="gpay-radio"> Google Pay</label>
+        </p>
+        <div id="gpay-container" style="display: none; margin-left: 20px;"></div>
+
+        <br>
+        <button type="submit" style="padding: 10px 20px; font-size: 16px;">Continue to checkout</button>
+    </form>
+
+
+<script>
+    //CHANGE THIS
+  function toggleGpay(show) {
+    document.getElementById('gpay-container').style.display = show ? 'block' : 'none';
+  }
+</script>
+
+<!-- Local Google Pay Script -->
+<script src="gpay.js"></script>
+<!-- Google Pay JavaScript Library -->
+<script async src="https://pay.google.com/gp/p/js/pay.js" onload="onGooglePayLoaded()"></script>
+
+</body>
+</html>
