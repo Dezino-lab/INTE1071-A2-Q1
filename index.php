@@ -75,7 +75,7 @@
                 <div>
                     <ol class="breadcrumb">
                         
-                        <li class="active">Eletric Bikes and Scooters</li>
+                        <li class="active">Electric Bikes and Scooters</li>
                     </ol>
                 </div>
                 <!-- /.div -->
@@ -169,7 +169,7 @@
                     Email: info@alicebikeshop.com<br>
                 </p>
 
-                2020 www.alicebikeeshop.com | All Right Reserved
+                2026 www.alicebikeeshop.com | All Right Reserved
             </div>
           
         </div>
@@ -177,7 +177,7 @@
     </div>
     <!-- /.col -->
     <div class="col-md-12 end-box ">
-        &copy; 2020 | &nbsp; All Rights Reserved | &nbsp; www.alicebikeshop.com | &nbsp; 24x7 support | &nbsp; Email us: info@alicebikeshop.com
+        &copy; 2026 | &nbsp; All Rights Reserved | &nbsp; www.alicebikeshop.com | &nbsp; 24x7 support | &nbsp; Email us: info@alicebikeshop.com
     </div>
     <!-- /.col -->
     <!--Footer end -->

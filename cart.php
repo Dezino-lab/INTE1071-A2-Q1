@@ -1,9 +1,38 @@
+<?php
+session_start();
+
+foreach ($_SESSION['cart'] as $item) {
+    echo $item['name'] . " - $" . $item['price'] . "<br>";
+}
+
+$total = 0;
+
+if (!empty($_SESSION['cart'])) {
+    foreach ($_SESSION['cart'] as $item) {
+        $total += $item['price'];
+    }
+}
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
     <title>Shopping Cart</title>
+    <!-- Bootstrap core CSS -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <!-- Fontawesome core CSS -->
+    <link href="assets/css/font-awesome.min.css" rel="stylesheet" />
+    <!--GOOGLE FONT -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <!--Slide Show Css -->
+    <link href="assets/ItemSlider/css/main-style.css" rel="stylesheet" />
+    <!-- custom CSS here -->
+    <link href="assets/css/style.css" rel="stylesheet" />
+    
     <style>
         .cart-container {
             width: 80%;
@@ -53,6 +82,55 @@
 </head>
 <body>
 
+<nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.php"><strong>ALICE'S</strong> ELECTRONIC BIKE Shop</a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
+
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">Track Order</a></li>
+                    <li><a href="#">Login</a></li>
+                    <li><a href="#">Signup</a></li>
+
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">24x7 Support <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#"><strong>Call: </strong>+61-000-000-000</a></li>
+                            <li><a href="#"><strong>Mail: </strong>info@alicebikeshop.com</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#"><strong>Address: </strong>
+                                <div>
+                                    Melbourne,<br />
+                                    VIC 3000, AUSTRALIA
+                                </div>
+                            </a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <form class="navbar-form navbar-right" role="search">
+                    <div class="form-group">
+                        <input type="text" placeholder="Enter Keyword Here ..." class="form-control">
+                    </div>
+                    &nbsp; 
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </form>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+                <!-- /.container-fluid -->
+    </nav>
 <div class="cart-container">
     <h1>Shopping Cart</h1>
     <div class="cart-header">
@@ -74,7 +152,8 @@
         </div>
         <div class="price">$1,299.00</div>
         <div class="qty"><input type="number" value="1"></div>
-        <div class="total">$1,299.00</div>
+        <h4>Total: $ <?php echo number_format($total, 2); ?></h4>
+        <div class="total">Total: $ <?php echo number_format($total, 2); ?></div>
     </div>
 
     <div class="cart-item">
@@ -97,12 +176,13 @@
         <h2> Total: $<span id = "total">0.00</span></h2>
     </div>
 
-    <h2>Select Payment Option</h2>
     <div class="payment-section">
+        <h2>Select Payment Option</h2>
         <div class="payment-icons">
             <button type="button">VISA</button>
             <button type="button">MasterCard</button>
             <button type="button">PayPal</button>
+            <button type="button">Google Pay</button>
             <div id="gpay"></div>
         </div>
     </div>
@@ -110,7 +190,41 @@
         <a href="billing.php" class="checkout-btn">CHECKOUT NOW &gt;&gt;&gt;</a>
     </div>
 </div>
+<?php
+session_start();
+?>
 
+<table class="table">
+    <thead>
+        <tr>
+            <th>Image</th>
+            <th>Product</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Qty</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+
+    <tbody>
+        <?php
+        if (!empty($_SESSION['cart'])) {
+            foreach ($_SESSION['cart'] as $item) {
+                echo "<tr>";
+                echo "<td><img src='images/default.png' width='80'></td>";
+                echo "<td>{$item['name']}</td>";
+                echo "<td>ID: {$item['id']}</td>";
+                echo "<td>\${$item['price']}</td>";
+                echo "<td>1</td>";
+                echo "<td>\${$item['price']}</td>";
+                echo "</tr>";
+            }
+        } else {
+            echo "<tr><td colspan='6'>Your cart is empty.</td></tr>";
+        }
+        ?>
+    </tbody>
+</table>
 
 <!-- Local Google Pay Script -->
 <script src="gpay.js"></script>
