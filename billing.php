@@ -71,32 +71,16 @@
         </p>
 
         <hr>
-
-        <!-- Payment Options Section -->
-        <h3>Select A Payment Option</h3>
-
-        <p>
-            <input type="radio" id="visa" name="payment" checked>
-            <label for="visa"> Visa</label>
-        </p>
-
-        <p>
-            <input type="radio" id="mastercard" name="payment">
-            <label for="mastercard"> MasterCard</label>
-        </p>
-
-        <p>
-            <input type="radio" id="paypal" name="payment">
-            <label for="paypal"> PayPal</label>
-        </p>
-
-        <p>
-            <input type="radio" id="gpay-radio" name="payment">
-            <label for="gpay-radio"> Google Pay</label>
-        </p>
-        <div id="gpay-container" style="display: none; margin-left: 20px;"></div>
-
+        <div class="payment-section">
+        <h2>Select Payment Option</h2>
+        <div class="payment-icons">
+            <button type="button">VISA</button>
+            <button type="button">MasterCard</button>
+            <button type="button">PayPal</button>
+            <div id="gpay"></div>
+        </div>
         <br>
+    </div>
         <button type="submit" style="padding: 10px 20px; font-size: 16px;">Continue to checkout</button>
     </form>
 

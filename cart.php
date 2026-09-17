@@ -99,7 +99,6 @@
 
     <h2>Select Payment Option</h2>
     <div class="payment-section">
-        <h2>Select Payment Option</h2>
         <div class="payment-icons">
             <button type="button">VISA</button>
             <button type="button">MasterCard</button>
@@ -108,7 +107,7 @@
         </div>
     </div>
     <div class="checkout-footer">
-        <a href="billing.html" class="checkout-btn">CHECKOUT NOW &gt;&gt;&gt;</a>
+        <a href="billing.php" class="checkout-btn">CHECKOUT NOW &gt;&gt;&gt;</a>
     </div>
 </div>
 
