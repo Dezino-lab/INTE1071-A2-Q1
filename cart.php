@@ -99,7 +99,7 @@ if (!empty($_SESSION['cart'])) {
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
 
-                <ul class="nav navbar-nav navbar-right">
+                <ul class="nav navbar-nav n avbar-right">
                     <li><a href="#">Track Order</a></li>
                     <li><a href="#">Login</a></li>
                     <li><a href="#">Signup</a></li>
@@ -186,8 +186,12 @@ if (!empty($_SESSION['cart'])) {
             <div id="gpay"></div>
         </div>
     </div>
+    <br>
     <div class="checkout-footer">
-        <a href="billing.php" class="checkout-btn">CHECKOUT NOW &gt;&gt;&gt;</a>
+        <form action="billing.php" method="get">
+            <button type="submit">CHECKOUT NOW</button>
+        </form>
+
     </div>
 </div>
 <?php
