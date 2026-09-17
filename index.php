@@ -108,8 +108,7 @@
                                 <h3><a href="#">Bronton </a></h3>
                                 <p>Price : <strong>$ 3000</strong>  </p>
                                 
-                                
-                                <p><a href="#" class="btn btn-success" role="button">Add To Cart</a> <a href="#" class="btn btn-primary" role="button">See Details</a></p>
+                                <p><a href="add_to_cart.php?id=001&name=Bronton&price=3000.00" class="btn btn-success">Add To Cart</a></p>
                             </div>
                         </div>
                     </div>
@@ -122,7 +121,7 @@
                                 <p>Price : <strong>$ 2000</strong>  </p>
                                 
                                 
-                                <p><a href="#" class="btn btn-success" role="button">Add To Cart</a> <a href="#" class="btn btn-primary" role="button">See Details</a></p>
+                                <p><a href="add_to_cart.php?id=002&name=E-BMX&price=2000.00" class="btn btn-success">Add To Cart</a></p>
                             </div>
                         </div>
                     </div>
@@ -135,7 +134,7 @@
                                 <p>Price : <strong>$ 700</strong>  </p>
                                 
                                 
-                                <p><a href="#" class="btn btn-success" role="button">Add To Cart</a> <a href="#" class="btn btn-primary" role="button">See Details</a></p>
+                                <p><a href="add_to_cart.php?id=003&name=F-65&price=700.00" class="btn btn-success">Add To Cart</a></p>
                             </div>
                         </div>
                     </div>
