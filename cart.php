@@ -1,10 +1,5 @@
 <?php
 session_start();
-
-foreach ($_SESSION['cart'] as $item) {
-    echo $item['name'] . " - $" . $item['price'] . "<br>";
-}
-
 $_SESSION['total'] = 0;
 
 if (!empty($_SESSION['cart'])) {
@@ -139,7 +134,6 @@ if (!empty($_SESSION['cart'])) {
         <div class="description">Product Description</div>
         <div class="price">Price</div>
         <div class="qty">Qty</div>
-        <div class="total">Total</div>
     </div>
 
     <div class="cart-item">
@@ -152,7 +146,6 @@ if (!empty($_SESSION['cart'])) {
         </div>
         <div class="price">$1,299.00</div>
         <div class="qty"><input type="number" value="1"></div>
-        <div class="total">$1,299.00</div>
     </div>
 
     <div class="cart-item">
@@ -165,14 +158,45 @@ if (!empty($_SESSION['cart'])) {
         </div>
         <div class="price">$1,499.00</div>
         <div class="qty"><input type="number" value="1"></div>
-        <div class="total">$1,499.00</div>
     </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Product</th>
+                <th>Description</th>
+                <th>Price</th>
+                <th>Qty</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+
+        <tbody>
+            <?php
+            if (!empty($_SESSION['cart'])) {
+                foreach ($_SESSION['cart'] as $item) {
+                    echo "<tr>";
+                    echo "<td><img src='assets/img/{$item['name']}.jpg' width='80'></td>";
+                    echo "<td>{$item['name']}</td>";
+                    echo "<td>ID: {$item['id']}</td>";
+                    echo "<td>\${$item['price']}</td>";
+                    echo "<td>1</td>";
+                    echo "<td>\${$item['price']}</td>";
+                    echo "</tr>";
+                }
+            } else {
+                echo "<tr><td colspan='6'>Your cart is empty.</td></tr>";
+            }
+            ?>
+        </tbody>
+    </table>
 
     <button class="update-btn">UPDATE QTY</button>
     <button class="remove-btn">REMOVE</button>
 
     <div class="cart-total">
-        <h2>Total: $ <?php echo number_format($total, 2); ?></h2>
+        <h2>Total: $ <?php echo number_format($_SESSION['total'], 2); ?></h2>
     </div>
 
     <div class="payment-section">
@@ -193,41 +217,6 @@ if (!empty($_SESSION['cart'])) {
 
     </div>
 </div>
-<?php
-session_start();
-?>
-
-<table class="table">
-    <thead>
-        <tr>
-            <th>Image</th>
-            <th>Product</th>
-            <th>Description</th>
-            <th>Price</th>
-            <th>Qty</th>
-            <th>Total</th>
-        </tr>
-    </thead>
-
-    <tbody>
-        <?php
-        if (!empty($_SESSION['cart'])) {
-            foreach ($_SESSION['cart'] as $item) {
-                echo "<tr>";
-                echo "<td><img src='images/default.png' width='80'></td>";
-                echo "<td>{$item['name']}</td>";
-                echo "<td>ID: {$item['id']}</td>";
-                echo "<td>\${$item['price']}</td>";
-                echo "<td>1</td>";
-                echo "<td>\${$item['price']}</td>";
-                echo "</tr>";
-            }
-        } else {
-            echo "<tr><td colspan='6'>Your cart is empty.</td></tr>";
-        }
-        ?>
-    </tbody>
-</table>
 
 <!-- Local Google Pay Script -->
 <script src="gpay.js"></script>

@@ -98,6 +98,9 @@ echo $_SESSION['total'];
     document.getElementById('gpay-container').style.display = show ? 'block' : 'none';
   }
 </script>
+<script>
+    window.cartTotal = <?php echo json_encode((float) $_SESSION['total']); ?>;
+</script>
 
 <!-- Local Google Pay Script -->
 <script src="gpay.js"></script>
