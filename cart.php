@@ -5,11 +5,11 @@ foreach ($_SESSION['cart'] as $item) {
     echo $item['name'] . " - $" . $item['price'] . "<br>";
 }
 
-$total = 0;
+$_SESSION['total'] = 0;
 
 if (!empty($_SESSION['cart'])) {
     foreach ($_SESSION['cart'] as $item) {
-        $total += $item['price'];
+        $_SESSION['total'] += $item['price'];
     }
 }
 ?>
@@ -152,8 +152,7 @@ if (!empty($_SESSION['cart'])) {
         </div>
         <div class="price">$1,299.00</div>
         <div class="qty"><input type="number" value="1"></div>
-        <h4>Total: $ <?php echo number_format($total, 2); ?></h4>
-        <div class="total">Total: $ <?php echo number_format($total, 2); ?></div>
+        <div class="total">$1,299.00</div>
     </div>
 
     <div class="cart-item">
@@ -173,7 +172,7 @@ if (!empty($_SESSION['cart'])) {
     <button class="remove-btn">REMOVE</button>
 
     <div class="cart-total">
-        <h2> Total: $<span id = "total">0.00</span></h2>
+        <h2>Total: $ <?php echo number_format($total, 2); ?></h2>
     </div>
 
     <div class="payment-section">
