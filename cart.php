@@ -200,7 +200,7 @@ if (!empty($_SESSION['cart'])) {
     </div>
 
     <div class="payment-section">
-        <h2>Select Payment Option</h2>
+        <h2>Available Payment Options</h2>
         <div class="payment-icons">
             <button type="button">VISA</button>
             <button type="button">MasterCard</button>
