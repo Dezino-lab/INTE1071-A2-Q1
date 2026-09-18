@@ -1,3 +1,4 @@
+
 /**
  * Define the version of the Google Pay API referenced when creating your
  * configuration
@@ -159,7 +160,7 @@ const baseRequest = {
     const button =
         paymentsClient.createButton({
           onClick: onGooglePaymentButtonClicked,
-          allowedPaymentMethods: [baseCardPaymentMethod]
+          allowedPaymentMethods: [cardPaymentMethod]
         });
     document.getElementById('gpay').appendChild(button);
   }
@@ -196,21 +197,22 @@ const baseRequest = {
    * @see {@link https://developers.google.com/pay/api/web/reference/request-objects#TransactionInfo|TransactionInfo}
    * @returns {object} transaction info, suitable for use as transactionInfo property of PaymentDataRequest
    */
-  //8.3 Part 2
+  //8.3 Part 2  
+// Transaction info using the dynamically fetched total from PHP sessions
+// Total cart price
+function getCartData() {
+    return window.cartData || { items: [], total: "0.00" };
+  }
+  
   function getGoogleTransactionInfo() {
-    const total = getCartTotal();
+    const cart = getCartData();
+  
     return {
-      displayItems: [
-        {
-          label: "Cart Total",
-          type: "SUBTOTAL",
-          price: total.toFixed(2),
-        },
-      ],
+      displayItems: cart.items,
       countryCode: 'AU',
       currencyCode: "AUD",
       totalPriceStatus: "FINAL",
-      totalPrice: total.toFixed(2),
+      totalPrice: cart.total,
       totalPriceLabel: "Total"
     };
   }
@@ -296,27 +298,7 @@ const baseRequest = {
     //   }, 500);
     // });
   }
-//Total cart price
-  function getCartTotal() {
-    let total = 0;
 
-    document.querySelectorAll('.cart-item').forEach(function(item) {
-        const priceText = item.querySelector('.price').textContent;
-        const price = parseFloat(priceText.replace(/[$,]/g, ''));
 
-        const quantity = parseInt(
-            item.querySelector('.qty input').value
-        ) || 0;
-
-        total += price * quantity;
-    });
-
-    return total;
-
-    function updateCartTotal() {
-        const total = getCartTotal();
-    
-        document.getElementById('total').textContent = total.toFixed(2);
-    }
-}
+  
   

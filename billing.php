@@ -2,6 +2,18 @@
 session_start();
 
 echo $_SESSION['total'];
+
+$cartData = [
+    'items' => array_map(function ($item) {
+        return [
+            'label' => $item['name'],
+            'type'  => 'LINE_ITEM',
+            'price' => number_format((float)$item['price'], 2, '.', ''),
+        ];
+    }, $_SESSION['cart'] ?? []),
+    'total' => number_format((float)($_SESSION['total'] ?? 0), 2, '.', ''),
+];
+
 ?>
 
 
@@ -93,10 +105,8 @@ echo $_SESSION['total'];
 
 
 <script>
-    //CHANGE THIS
-  function toggleGpay(show) {
-    document.getElementById('gpay-container').style.display = show ? 'block' : 'none';
-  }
+  window.cartData = <?php echo json_encode($cartData,
+      JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT); ?>;
 </script>
 <script>
     window.cartTotal = <?php echo json_encode((float) $_SESSION['total']); ?>;
