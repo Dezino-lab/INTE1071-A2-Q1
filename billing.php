@@ -1,6 +1,14 @@
 <?php
 session_start();
 
+require_once 'config.php';
+
+$cartItems = $_SESSION['cart'] ?? [];
+$paypalItem = $cartItems[0] ?? [];
+$paypalItemName = $paypalItem['name'] ?? 'Shopping cart';
+$paypalItemNumber = $paypalItem['id'] ?? 'cart';
+$paypalAmount = (float) ($_SESSION['total'] ?? 0);
+
 echo $_SESSION['total'];
 
 $cartData = [
@@ -95,14 +103,31 @@ $cartData = [
         <div class="payment-icons">
             <button type="button">VISA</button>
             <button type="button">MasterCard</button>
-            <button type="button">PayPal</button>
+            <form action="<?php echo PAYPAL_URL; ?>" method="post" style="padding: 0; margin: 0;">
+                <input type="hidden" name="cmd" value="_cart">
+                <input type="hidden" name="upload" value="1">
+                <input type="hidden" name="business" value="<?php echo PAYPAL_ID; ?>" />
+                <input type="hidden" name="currency_code" value="<?php echo PAYPAL_CURRENCY; ?>" />
+                <input type="hidden" name="return" value="<?php echo PAYPAL_RETURN_URL; ?>">
+                <input type="hidden" name="notify_url" value="<?php echo PAYPAL_NOTIFY_URL; ?>">
+                <?php
+                $x = 1;
+                foreach ($cartItems as $item) {
+
+                    echo '<input type="hidden" name="item_name_" value="<?php echo $item["name"]; ?>';
+                    echo '<input type="hidden" name="item_number_" value="<?php echo $item["id"]; ?>';
+                    echo '<input type="hidden" name="amount_" value="<?php echo $item["price"]; ?>';
+                    $x++;
+                }
+                ?>
+                <button type="submit" name="submit">Pay with PayPal</button>
+            </form>
             <div id="gpay"></div>
         </div>
         <br>
     </div>
         <button type="submit" style="padding: 10px 20px; font-size: 16px;">Continue to checkout</button>
     </form>
-
 
 <script>
   window.cartData = <?php echo json_encode($cartData,

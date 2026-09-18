@@ -115,7 +115,7 @@
                     <!-- /.col -->
                     <div class="col-md-4 text-center col-sm-6 col-xs-6">
                         <div class="thumbnail product-box">
-                            <img src="assets/img/dummyimg.jpg" alt="" />
+                            <img src="assets/img/E-BMX.jpg" alt="" />
                             <div class="caption">
                                 <h3><a href="#">E-BMX </a></h3>
                                 <p>Price : <strong>$ 2000</strong>  </p>
@@ -128,7 +128,7 @@
                     <!-- /.col -->
                     <div class="col-md-4 text-center col-sm-6 col-xs-6">
                         <div class="thumbnail product-box">
-                            <img src="assets/img/f65.jpg" alt="" />
+                            <img src="assets/img/F-65.jpg" alt="" />
                             <div class="caption">
                                 <h3><a href="#">F-65 </a></h3>
                                 <p>Price : <strong>$ 700</strong>  </p>
