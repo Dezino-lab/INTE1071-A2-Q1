@@ -6,10 +6,10 @@
 // PayPal configuration
 define('PAYPAL_ID', 'sb-pfulv52580591@business.example.com'); //seller email
 define('PAYPAL_SANDBOX', TRUE); //TRUE or FALSE
-//redirect page
-define('PAYPAL_RETURN_URL', 'http://localhost/tutorial5-paypal/success.php'); 
-define('PAYPAL_CANCEL_URL', 'http://localhost/tutorial5-paypal/cancel.php'); 
-define('PAYPAL_NOTIFY_URL', 'http://127.0.0.1/tutorial5-paypal/ipn.php');
+// Redirect pages for this project.
+define('PAYPAL_RETURN_URL', 'http://localhost/INTE1071-A2-Q1/billing.php?payment=success');
+define('PAYPAL_CANCEL_URL', 'http://localhost/INTE1071-A2-Q1/billing.php?payment=cancelled');
+define('PAYPAL_NOTIFY_URL', 'http://localhost/INTE1071-A2-Q1/ipn.php');
 //define currency
 define('PAYPAL_CURRENCY', 'AUD');
 

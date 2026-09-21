@@ -4,7 +4,7 @@ session_start();
 $_SESSION['total'] = 0;
 if (!empty($_SESSION['cart'])) {
     foreach ($_SESSION['cart'] as $item) {
-        $_SESSION['total'] += $item['price'];
+        $_SESSION['total'] += (float) $item['price'] * max(1, (int) ($item['qty'] ?? 1));
     }
 }
 ?>
@@ -138,30 +138,7 @@ if (!empty($_SESSION['cart'])) {
         <div class="qty">Qty</div>
     </div>
 
-    <div class="cart-item">
-        <div><input type="checkbox"></div>
-        <div><img src="assets/img/bronton.jpg" alt="Electric Bike Model 1"></div>
-        <div class="description">
-            <p><strong>[EB1-500W-48V-28MPH] Electric Bike Model 1</strong></p>
-            <p>500W Motor, 48V Battery, Range: 50 miles, Top Speed: 28 mph</p>
-            <p>Availability: <span style="color:green;">Online</span> <span style="color:blue;">Immediate Pick-up</span></p>
-        </div>
-        <div class="price">$1,299.00</div>
-        <div class="qty"><input type="number" value="1"></div>
-    </div>
-
-    <div class="cart-item">
-        <div><input type="checkbox"></div>
-        <div><img src="assets/img/bronton.jpg" alt="Electric Bike Model 2"></div>
-        <div class="description">
-            <p><strong>[EB2-750W-52V-32MPH] Electric Bike Model 2</strong></p>
-            <p>750W Motor, 52V Battery, Range: 60 miles, Top Speed: 32 mph</p>
-            <p>Availability: <span style="color:green;">Online</span> <span style="color:blue;">Immediate Pick-up</span></p>
-        </div>
-        <div class="price">$1,499.00</div>
-        <div class="qty"><input type="number" value="1"></div>
-    </div>
-
+    <form action="update_cart.php" method="post">
     <table class="table">
         <thead>
             <tr>
@@ -171,31 +148,36 @@ if (!empty($_SESSION['cart'])) {
                 <th>Price</th>
                 <th>Qty</th>
                 <th>Total</th>
+                <th>Remove</th>
             </tr>
         </thead>
 
         <tbody>
             <?php
             if (!empty($_SESSION['cart'])) {
-                foreach ($_SESSION['cart'] as $item) {
+                foreach ($_SESSION['cart'] as $index => $item) {
+                    $quantity = max(1, (int) ($item['qty'] ?? 1));
+                    $lineTotal = (float) $item['price'] * $quantity;
                     echo "<tr>";
                     echo "<td><img src='assets/img/{$item['name']}.jpg' width='80'></td>";
                     echo "<td>{$item['name']}</td>";
                     echo "<td>ID: {$item['id']}</td>";
                     echo "<td>\${$item['price']}</td>";
-                    echo "<td>1</td>";
-                    echo "<td>\${$item['price']}</td>";
+                    echo "<td><input type='number' name='quantities[{$index}]' value='{$quantity}' min='1' class='qty-input'></td>";
+                    echo "<td>\$" . number_format($lineTotal, 2) . "</td>";
+                    echo "<td><a href='remove_from_cart.php?index={$index}' class='remove-btn'>REMOVE</a></td>";
                     echo "</tr>";
                 }
             } else {
-                echo "<tr><td colspan='6'>Your cart is empty.</td></tr>";
+                echo "<tr><td colspan='7'>Your cart is empty.</td></tr>";
             }
             ?>
         </tbody>
     </table>
 
-    <button class="update-btn">UPDATE QTY</button>
-    <button class="remove-btn">REMOVE</button>
+    <button type="submit" class="update-btn">UPDATE QTY</button>
+    </form>
+    <a href="remove_from_cart.php?clear=1" class="remove-btn">CLEAR CART</a>
 
     <div class="cart-total">
         <h2>Total: $ <?php echo number_format($_SESSION['total'], 2); ?></h2>

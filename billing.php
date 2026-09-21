@@ -4,12 +4,12 @@ session_start();
 require_once 'config.php';
 
 $cartItems = $_SESSION['cart'] ?? [];
-$paypalItem = $cartItems[0] ?? [];
-$paypalItemName = $paypalItem['name'] ?? 'Shopping cart';
-$paypalItemNumber = $paypalItem['id'] ?? 'cart';
-$paypalAmount = (float) ($_SESSION['total'] ?? 0);
-
-echo $_SESSION['total'];
+$cartTotal = 0;
+foreach ($cartItems as $item) {
+    $quantity = max(1, (int) ($item['qty'] ?? 1));
+    $cartTotal += (float) $item['price'] * $quantity;
+}
+$_SESSION['total'] = $cartTotal;
 
 $cartData = [
     'items' => array_map(function ($item) {
@@ -19,7 +19,7 @@ $cartData = [
             'price' => number_format((float)$item['price'], 2, '.', ''),
         ];
     }, $_SESSION['cart'] ?? []),
-    'total' => number_format((float)($_SESSION['total'] ?? 0), 2, '.', ''),
+    'total' => number_format($cartTotal, 2, '.', ''),
 ];
 
 ?>
@@ -97,37 +97,35 @@ $cartData = [
             <label for="save-info">Save this information for next time</label>
         </p>
 
-        <hr>
-        <div class="payment-section">
+        <button type="submit" style="padding: 10px 20px; font-size: 16px;">Continue to checkout</button>
+    </form>
+
+    <hr>
+    <div class="payment-section">
         <h2>Select Payment Option</h2>
         <div class="payment-icons">
             <button type="button">VISA</button>
             <button type="button">MasterCard</button>
-            <form action="<?php echo PAYPAL_URL; ?>" method="post" style="padding: 0; margin: 0;">
+            <form action="<?php echo htmlspecialchars(PAYPAL_URL, ENT_QUOTES, 'UTF-8'); ?>" method="post" style="padding: 0; margin: 0;">
                 <input type="hidden" name="cmd" value="_cart">
                 <input type="hidden" name="upload" value="1">
-                <input type="hidden" name="business" value="<?php echo PAYPAL_ID; ?>" />
-                <input type="hidden" name="currency_code" value="<?php echo PAYPAL_CURRENCY; ?>" />
-                <input type="hidden" name="return" value="<?php echo PAYPAL_RETURN_URL; ?>">
-                <input type="hidden" name="notify_url" value="<?php echo PAYPAL_NOTIFY_URL; ?>">
-                <?php
-                $x = 1;
-                foreach ($cartItems as $item) {
-
-                    echo '<input type="hidden" name="item_name_" value="<?php echo $item["name"]; ?>';
-                    echo '<input type="hidden" name="item_number_" value="<?php echo $item["id"]; ?>';
-                    echo '<input type="hidden" name="amount_" value="<?php echo $item["price"]; ?>';
-                    $x++;
-                }
-                ?>
+                <input type="hidden" name="business" value="<?php echo htmlspecialchars(PAYPAL_ID, ENT_QUOTES, 'UTF-8'); ?>">
+                <input type="hidden" name="currency_code" value="<?php echo htmlspecialchars(PAYPAL_CURRENCY, ENT_QUOTES, 'UTF-8'); ?>">
+                <input type="hidden" name="return" value="<?php echo htmlspecialchars(PAYPAL_RETURN_URL, ENT_QUOTES, 'UTF-8'); ?>">
+                <input type="hidden" name="cancel_return" value="<?php echo htmlspecialchars(PAYPAL_CANCEL_URL, ENT_QUOTES, 'UTF-8'); ?>">
+                <input type="hidden" name="notify_url" value="<?php echo htmlspecialchars(PAYPAL_NOTIFY_URL, ENT_QUOTES, 'UTF-8'); ?>">
+                <?php foreach ($cartItems as $index => $item): ?>
+                    <input type="hidden" name="item_name_<?php echo $index + 1; ?>" value="<?php echo htmlspecialchars($item['name'], ENT_QUOTES, 'UTF-8'); ?>">
+                    <input type="hidden" name="item_number_<?php echo $index + 1; ?>" value="<?php echo htmlspecialchars($item['id'], ENT_QUOTES, 'UTF-8'); ?>">
+                    <input type="hidden" name="amount_<?php echo $index + 1; ?>" value="<?php echo number_format((float) $item['price'], 2, '.', ''); ?>">
+                    <input type="hidden" name="quantity_<?php echo $index + 1; ?>" value="<?php echo max(1, (int) ($item['qty'] ?? 1)); ?>">
+                <?php endforeach; ?>
                 <button type="submit" name="submit">Pay with PayPal</button>
             </form>
             <div id="gpay"></div>
         </div>
         <br>
     </div>
-        <button type="submit" style="padding: 10px 20px; font-size: 16px;">Continue to checkout</button>
-    </form>
 
 <script>
   window.cartData = <?php echo json_encode($cartData,
