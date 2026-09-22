@@ -63,14 +63,17 @@ if (strcmp ($res, "VERIFIED") == 0) {
       // check that payment_amount/payment_currency are correct
       // process the notification
       // assign posted variables to local variables
-      $item_name = $_POST['item_name'];
-      $item_number = $_POST['item_number'];
-      $payment_status = $_POST['payment_status'];
-      $payment_amount = $_POST['mc_gross'];
-      $payment_currency = $_POST['mc_currency'];
-      $txn_id = $_POST['txn_id'];
-      $receiver_email = $_POST['receiver_email'];
-      $payer_email = $_POST['payer_email'];
+      $item_name = $myPost['item_name'] ?? '';
+      $item_number = $myPost['item_number'] ?? '';
+      $payment_status = $myPost['payment_status'] ?? '';
+      $payment_amount = $myPost['mc_gross'] ?? '';
+      $payment_currency = $myPost['mc_currency'] ?? '';
+      $txn_id = $myPost['txn_id'] ?? '';
+      $receiver_email = $myPost['receiver_email'] ?? '';
+      $payer_email = $myPost['payer_email'] ?? '';
+      $billing = json_decode($myPost['custom'] ?? '{}', true) ?: [];
+      $username = $billing['username'] ?? '';
+      $address2 = $billing['address2'] ?? '';
       // IPN message values depend upon the type of notification sent.
       // To loop through the &_POST array and print the NV pairs to the screen:
       foreach($_POST as $key => $value) {

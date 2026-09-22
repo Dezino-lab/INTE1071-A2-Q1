@@ -96,7 +96,7 @@ if (!empty($_SESSION['cart'])) {
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
 
-                <ul class="nav navbar-nav n avbar-right">
+                <ul class="nav navbar-nav navbar-right">
                     <li><a href="#">Track Order</a></li>
                     <li><a href="#">Login</a></li>
                     <li><a href="#">Signup</a></li>

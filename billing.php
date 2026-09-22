@@ -3,6 +3,23 @@ session_start();
 
 require_once 'config.php';
 
+$billing = $_SESSION['billing'] ?? [];
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $billing = [
+        'firstname' => trim($_POST['firstname'] ?? ''),
+        'lastname'  => trim($_POST['lastname'] ?? ''),
+        'username'  => trim($_POST['username'] ?? ''),
+        'email'     => trim($_POST['email'] ?? ''),
+        'address'   => trim($_POST['address'] ?? ''),
+        'address2'  => trim($_POST['address2'] ?? ''),
+        'city'      => trim($_POST['city'] ?? ''),
+        'country'   => trim($_POST['country'] ?? ''),
+        'state'     => trim($_POST['state'] ?? ''),
+        'zip'       => trim($_POST['zip'] ?? ''),
+    ];
+    $_SESSION['billing'] = $billing;
+}
+
 $cartItems = $_SESSION['cart'] ?? [];
 $cartTotal = 0;
 foreach ($cartItems as $item) {
@@ -36,7 +53,7 @@ $cartData = [
 
     <h2>Provide Billing Information</h2>
 
-    <form id="billing-form" action="#" method="POST">
+    <form id="billing-form" action="billing.php" method="POST">
         <!-- Billing Address Section -->
         <h3>Billing Address</h3>
         
@@ -71,15 +88,27 @@ $cartData = [
         </p>
 
         <p>
+            <label>City/Suburb:</label><br>
+            <input type="text" name="city" required>
+        </p>
+
+        <p>
             <label>Country:</label>
-            <select name="country" required>
-                <option value="">Choose...</option>
+            <select name="country" required placeholder="Choose...">
+                <option value="" disabled selected>Choose...</option>
                 <option value="AU">Australia</option>
             </select>
 
             <label>State:</label>
-            <select name="state" required>
-                <option value="">Choose...</option>
+            <select name="state" required placeholder="Choose...">
+                <option value="" disabled selected>Choose...</option>
+                <option value="ACT">ACT</option>
+                <option value="NSW">NSW</option>
+                <option value="NT">NT</option>
+                <option value="QLD">QLD</option>
+                <option value="SA">SA</option>
+                <option value="TAS">TAS</option>
+                <option value="WA">WA</option>
                 <option value="VIC">VIC</option>
             </select>
 
@@ -99,6 +128,10 @@ $cartData = [
 
         <button type="submit" style="padding: 10px 20px; font-size: 16px;">Continue to checkout</button>
     </form>
+    <br>
+    <form action="cart.php" method="get">
+            <button type="submit" style="padding: 10px 20px; font-size: 16px;">Return to Cart</button>
+    </form>
 
     <hr>
     <div class="payment-section">
@@ -114,6 +147,20 @@ $cartData = [
                 <input type="hidden" name="return" value="<?php echo htmlspecialchars(PAYPAL_RETURN_URL, ENT_QUOTES, 'UTF-8'); ?>">
                 <input type="hidden" name="cancel_return" value="<?php echo htmlspecialchars(PAYPAL_CANCEL_URL, ENT_QUOTES, 'UTF-8'); ?>">
                 <input type="hidden" name="notify_url" value="<?php echo htmlspecialchars(PAYPAL_NOTIFY_URL, ENT_QUOTES, 'UTF-8'); ?>">
+                <input type="hidden" name="address_override" value="1">
+                <input type="hidden" name="first_name" value="<?php echo htmlspecialchars($billing['firstname'] ?? '', ENT_QUOTES, 'UTF-8'); ?>">
+                <input type="hidden" name="last_name" value="<?php echo htmlspecialchars($billing['lastname'] ?? '', ENT_QUOTES, 'UTF-8'); ?>">
+                <input type="hidden" name="email" value="<?php echo htmlspecialchars($billing['email'] ?? '', ENT_QUOTES, 'UTF-8'); ?>">
+                <input type="hidden" name="address1" value="<?php echo htmlspecialchars($billing['address'] ?? '', ENT_QUOTES, 'UTF-8'); ?>">
+                <input type="hidden" name="address2" value="<?php echo htmlspecialchars($billing['address2'] ?? '', ENT_QUOTES, 'UTF-8'); ?>">
+                <input type="hidden" name="city" value="<?php echo htmlspecialchars($billing['city'] ?? '', ENT_QUOTES, 'UTF-8'); ?>">
+                <input type="hidden" name="state" value="<?php echo htmlspecialchars($billing['state'] ?? '', ENT_QUOTES, 'UTF-8'); ?>">
+                <input type="hidden" name="zip" value="<?php echo htmlspecialchars($billing['zip'] ?? '', ENT_QUOTES, 'UTF-8'); ?>">
+                <input type="hidden" name="country" value="<?php echo htmlspecialchars($billing['country'] ?? '', ENT_QUOTES, 'UTF-8'); ?>">
+                <input type="hidden" name="custom" value="<?php echo htmlspecialchars(json_encode([
+                    'username' => $billing['username'] ?? '',
+                    'address2' => $billing['address2'] ?? '',
+                ], JSON_UNESCAPED_SLASHES), ENT_QUOTES, 'UTF-8'); ?>">
                 <?php foreach ($cartItems as $index => $item): ?>
                     <input type="hidden" name="item_name_<?php echo $index + 1; ?>" value="<?php echo htmlspecialchars($item['name'], ENT_QUOTES, 'UTF-8'); ?>">
                     <input type="hidden" name="item_number_<?php echo $index + 1; ?>" value="<?php echo htmlspecialchars($item['id'], ENT_QUOTES, 'UTF-8'); ?>">
