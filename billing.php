@@ -48,12 +48,112 @@ $cartData = [
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Billing Information</title>
+    <!-- Bootstrap core CSS -->
+    <link href="assets/css/bootstrap.css" rel="stylesheet">
+    <!-- Fontawesome core CSS -->
+    <link href="assets/css/font-awesome.min.css" rel="stylesheet" />
+    <!--GOOGLE FONT -->
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+    <!--Slide Show Css -->
+    <link href="assets/ItemSlider/css/main-style.css" rel="stylesheet" />
+    <!-- custom CSS here -->
+    <link href="assets/css/style.css" rel="stylesheet" />
+    
+    <style>
+        .cart-container {
+            width: 80%;
+            margin: 0 auto;
+            border: 1px solid #ddd;
+            padding: 20px;
+        }
+        .cart-header, .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .cart-header {
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 10px;
+        }
+        .cart-item {
+            padding: 10px 0;
+            border-bottom: 1px solid #ddd;
+        }
+        .cart-item img {
+            max-width: 100px;
+        }
+        .cart-item p {
+            margin: 0;
+        }
+        .cart-item .description {
+            flex: 2;
+            padding: 0 10px;
+        }
+        .cart-item .price, .cart-item .qty, .cart-item .total {
+            flex: 1;
+            text-align: center;
+        }
+        .cart-item .qty input {
+            width: 50px;
+            text-align: center;
+        }
+        .update-btn, .remove-btn {
+            background-color: black;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+    </style>
 </head>
-<body style="font-family: sans-serif; margin: 20px;">
+<body>
+    <nav class="navbar navbar-default" role="navigation">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="index.php"><strong>ALICE'S</strong> ELECTRONIC BIKE Shop</a>
+            </div>
+        
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a href="#">Track Order</a></li>
+                    <li><a href="#">Login</a></li>
+                    <li><a href="#">Signup</a></li>
 
-    <h2>Provide Billing Information</h2>
-
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">24x7 Support <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#"><strong>Call: </strong>+61-000-000-000</a></li>
+                            <li><a href="#"><strong>Mail: </strong>info@alicebikeshop.com</a></li>
+                            <li class="divider"></li>
+                            <li><a href="#"><strong>Address: </strong>
+                                <div>
+                                    Melbourne,<br />
+                                    VIC 3000, AUSTRALIA
+                                </div>
+                            </a></li>
+                        </ul>
+                    </li>
+                </ul>
+                <form class="navbar-form navbar-right" role="search">
+                    <div class="form-group">
+                        <input type="text" placeholder="Enter Keyword Here ..." class="form-control">
+                    </div>
+                    &nbsp; 
+                    <button type="submit" class="btn btn-primary">Search</button>
+                </form>
+            </div>
+        </div>
+    </nav>
+<div class="cart-container" style="font-family: sans-serif; margin: 20px;">
     <form id="billing-form" action="billing.php" method="POST">
+        
+        <h2>Provide Billing Information</h2>
         <!-- Billing Address Section -->
         <h3>Billing Address</h3>
         
@@ -132,9 +232,10 @@ $cartData = [
     <form action="cart.php" method="get">
             <button type="submit" style="padding: 10px 20px; font-size: 16px;">Return to Cart</button>
     </form>
+</div>
 
     <hr>
-    <div class="payment-section">
+    <div class="payment-section" style="font-family: sans-serif; margin: 20px;">
         <h2>Select Payment Option</h2>
         <div class="payment-icons">
             <button type="button">VISA</button>
