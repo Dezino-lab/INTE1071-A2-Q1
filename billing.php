@@ -63,10 +63,12 @@ $paymentStatus = $_GET['payment'] ?? '';
     
     <style>
         .cart-container {
-            width: 80%;
-            margin: 0 auto;
+            width: calc(100% - 40px);
+            max-width: 1200px;
+            margin: 20px auto;
             border: 1px solid #ddd;
             padding: 20px;
+            box-sizing: border-box;
         }
         .cart-header, .cart-item {
             display: flex;
@@ -105,6 +107,58 @@ $paymentStatus = $_GET['payment'] ?? '';
             border: none;
             padding: 10px 20px;
             cursor: pointer;
+        }
+        .billing-row {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+        .billing-field {
+            flex: 1;
+        }
+        .billing-field label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .billing-field input,
+        .billing-field select {
+            box-sizing: border-box;
+            width: 100%;
+            min-height: 34px;
+        }
+        .billing-field--wide {
+            flex: 2;
+        }
+        .payment-icons {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+        .payment-icons form {
+            margin: 0;
+        }
+        .payment-button {
+            width: 150px;
+            height: 70px;
+            padding: 8px;
+            background: white;
+            border: 1px solid #ccc;
+            cursor: pointer;
+        }
+        .payment-button img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain;
+        }
+        @media (max-width: 600px) {
+            .billing-row {
+                display: block;
+                margin-bottom: 0;
+            }
+            .billing-field {
+                margin-bottom: 15px;
+            }
         }
     </style>
 </head>
@@ -152,7 +206,7 @@ $paymentStatus = $_GET['payment'] ?? '';
             </div>
         </div>
     </nav>
-<div class="cart-container" style="font-family: sans-serif; margin: 20px;">
+<div class="cart-container" style="font-family: sans-serif;">
     <?php if ($paymentStatus === 'success'): ?>
         <p style="padding: 12px; background: #dff0d8; color: #3c763d;">Payment completed successfully. Thank you for your order.</p>
     <?php elseif ($paymentStatus === 'square_success'): ?>
@@ -162,68 +216,73 @@ $paymentStatus = $_GET['payment'] ?? '';
     <?php endif; ?>
     <form id="billing-form" action="billing.php" method="POST">
         
-        <h2>Provide Billing Information</h2>
+        <h2>Billing Information:</h2>
         <!-- Billing Address Section -->
-        <h3>Billing Address</h3>
-        
-        <p>
-            <label>First name:</label><br>
-            <input type="text" name="firstname" required>
-        </p>
+        <div class="billing-row">
+            <div class="billing-field">
+                <label for="firstname">First name:</label>
+                <input id="firstname" type="text" name="firstname" required>
+            </div>
+            <div class="billing-field">
+                <label for="lastname">Last name:</label>
+                <input id="lastname" type="text" name="lastname" required>
+            </div>
+        </div>
 
-        <p>
-            <label>Last name:</label><br>
-            <input type="text" name="lastname" required>
-        </p>
+        <div class="billing-row">
+            <div class="billing-field">
+                <label for="username">Username:</label>
+                <input id="username" type="text" name="username" required>
+            </div>
+            <div class="billing-field">
+                <label for="email">Email (Optional):</label>
+                <input id="email" type="email" name="email">
+            </div>
+        </div>
 
-        <p>
-            <label>Username:</label><br>
-            <input type="text" name="username"required>
-        </p>
+        <h2>Billing Address:</h2>
+        <div class="billing-row">
+            <div class="billing-field billing-field--wide">
+                <label for="address">Address:</label>
+                <input id="address" type="text" name="address" required>
+            </div>
+            <div class="billing-field">
+                <label for="address2">Address 2 (Optional):</label>
+                <input id="address2" type="text" name="address2">
+            </div>
+        </div>
 
-        <p>
-            <label>Email (Optional):</label><br>
-            <input type="email" name="email">
-        </p>
-
-        <p>
-            <label>Address:</label><br>
-            <input type="text" name="address" required>
-        </p>
-
-        <p>
-            <label>Address 2 (Optional):</label><br>
-            <input type="text" name="address2" >
-        </p>
-
-        <p>
-            <label>City/Suburb:</label><br>
-            <input type="text" name="city" required>
-        </p>
-
-        <p>
-            <label>Country:</label>
-            <select name="country" required placeholder="Choose...">
-                <option value="" disabled selected>Choose...</option>
-                <option value="AU">Australia</option>
-            </select>
-
-            <label>State:</label>
-            <select name="state" required placeholder="Choose...">
-                <option value="" disabled selected>Choose...</option>
-                <option value="ACT">ACT</option>
-                <option value="NSW">NSW</option>
-                <option value="NT">NT</option>
-                <option value="QLD">QLD</option>
-                <option value="SA">SA</option>
-                <option value="TAS">TAS</option>
-                <option value="WA">WA</option>
-                <option value="VIC">VIC</option>
-            </select>
-
-            <label>Zip:</label>
-            <input type="text" name="zip" size="10" required>
-        </p>
+        <div class="billing-row">
+            <div class="billing-field billing-field--wide">
+                <label for="city">City/Suburb:</label>
+                <input id="city" type="text" name="city" required>
+            </div>
+            <div class="billing-field">
+                <label for="country">Country:</label>
+                <select id="country" name="country" required>
+                    <option value="" disabled selected>Choose...</option>
+                    <option value="AU">Australia</option>
+                </select>
+            </div>
+            <div class="billing-field">
+                <label for="state">State:</label>
+                <select id="state" name="state" required>
+                    <option value="" disabled selected>Choose...</option>
+                    <option value="ACT">ACT</option>
+                    <option value="NSW">NSW</option>
+                    <option value="NT">NT</option>
+                    <option value="QLD">QLD</option>
+                    <option value="SA">SA</option>
+                    <option value="TAS">TAS</option>
+                    <option value="WA">WA</option>
+                    <option value="VIC">VIC</option>
+                </select>
+            </div>
+            <div class="billing-field">
+                <label for="zip">Zip:</label>
+                <input id="zip" type="text" name="zip" required>
+            </div>
+        </div>
 
         <p>
             <input type="checkbox" id="same-address">
@@ -235,12 +294,9 @@ $paymentStatus = $_GET['payment'] ?? '';
             <label for="save-info">Save this information for next time</label>
         </p>
 
-        <button type="submit" style="padding: 10px 20px; font-size: 16px;">Continue to checkout</button>
+        <button type="submit" style="padding: 10px 20px; font-size: 16px;">Save Details</button>
     </form>
     <br>
-    <form action="cart.php" method="get">
-            <button type="submit" style="padding: 10px 20px; font-size: 16px;">Return to Cart</button>
-    </form>
 </div>
 
     <hr>
@@ -248,12 +304,15 @@ $paymentStatus = $_GET['payment'] ?? '';
         <h2>Select Payment Option</h2>
         <div class="payment-icons">
             <form action="checkout.php" method="post" style="padding: 0; margin: 0;">
-                <button type="submit">Pay with Stripe</button>
+                <button type="submit" class="payment-button" aria-label="Pay with Stripe">
+                    <img src="assets/img/Stripe.png" alt="Pay with Stripe">
+                </button>
             </form>
             <form action="square_checkout.php" method="post" style="padding: 0; margin: 0;">
-                <button type="submit">Pay with Square</button>
+                <button type="submit" class="payment-button" aria-label="Pay with Square">
+                    <img src="assets/img/square.png" alt="Pay with Square">
+                </button>
             </form>
-            <button type="button">MasterCard</button>
             <form action="<?php echo htmlspecialchars(PAYPAL_URL, ENT_QUOTES, 'UTF-8'); ?>" method="post" style="padding: 0; margin: 0;">
                 <input type="hidden" name="cmd" value="_cart">
                 <input type="hidden" name="upload" value="1">
@@ -282,10 +341,15 @@ $paymentStatus = $_GET['payment'] ?? '';
                     <input type="hidden" name="amount_<?php echo $index + 1; ?>" value="<?php echo number_format((float) $item['price'], 2, '.', ''); ?>">
                     <input type="hidden" name="quantity_<?php echo $index + 1; ?>" value="<?php echo max(1, (int) ($item['qty'] ?? 1)); ?>">
                 <?php endforeach; ?>
-                <button type="submit" name="submit">Pay with PayPal</button>
+                <button type="submit" name="submit" class="payment-button" aria-label="Pay with PayPal">
+                    <img src="assets/img/PayPal.png" alt="Pay with PayPal">
+                </button>
+                <div id="gpay"></div>
             </form>
-            <div id="gpay"></div>
         </div>
+        <form action="cart.php" method="get">
+            <button type="submit" style="padding: 10px 20px; font-size: 16px;">Return to Cart</button>
+        </form>
         <br>
     </div>
 

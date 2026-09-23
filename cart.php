@@ -18,7 +18,7 @@ if (!empty($_SESSION['cart'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title>Shopping Cart</title>
+    <title>Cart</title>
     <!-- Bootstrap core CSS -->
     <link href="assets/css/bootstrap.css" rel="stylesheet">
     <!-- Fontawesome core CSS -->
@@ -52,6 +52,12 @@ if (!empty($_SESSION['cart'])) {
         }
         .cart-item img {
             max-width: 100px;
+        }
+        .payment-icons img {
+            width: 100px;
+            height: 50px;
+            object-fit: contain;
+            margin-right: 10px;
         }
         .cart-item p {
             margin: 0;
@@ -129,15 +135,7 @@ if (!empty($_SESSION['cart'])) {
                 <!-- /.container-fluid -->
     </nav>
 <div class="cart-container">
-    <h1>Shopping Cart</h1>
-    <div class="cart-header">
-        <div>Remove</div>
-        <div>Image</div>
-        <div class="description">Product Description</div>
-        <div class="price">Price</div>
-        <div class="qty">Qty</div>
-    </div>
-
+    <h1>Shopping Cart:</h1>
     <form action="update_cart.php" method="post">
     <table class="table">
         <thead>
@@ -159,7 +157,7 @@ if (!empty($_SESSION['cart'])) {
                     $quantity = max(1, (int) ($item['qty'] ?? 1));
                     $lineTotal = (float) $item['price'] * $quantity;
                     echo "<tr>";
-                    echo "<td><img src='assets/img/{$item['name']}.jpg' width='80'></td>";
+                    echo "<td><img src='assets/img/{$item['name']}.jpg' width='150'></td>";
                     echo "<td>{$item['name']}</td>";
                     echo "<td>ID: {$item['id']}</td>";
                     echo "<td>\${$item['price']}</td>";
@@ -175,28 +173,29 @@ if (!empty($_SESSION['cart'])) {
         </tbody>
     </table>
 
-    <button type="submit" class="update-btn">UPDATE QTY</button>
-    </form>
-    <a href="remove_from_cart.php?clear=1" class="remove-btn">CLEAR CART</a>
+    <a href="index.php" class="btn btn-primary">CONTINUE SHOPPING</a>
+    <button type="submit" class="btn btn-primary">UPDATE QTY</button>
+    <a href="remove_from_cart.php?clear=1" class="btn btn-primary">CLEAR CART</a>
+</form>
+    
 
     <div class="cart-total">
-        <h2>Total: $ <?php echo number_format($_SESSION['total'], 2); ?></h2>
+        <h4>Total: $ <?php echo number_format($_SESSION['total'], 2); ?></h4>
     </div>
 
     <div class="payment-section">
-        <h2>Available Payment Options</h2>
+        <h3>Available Payment Options:</h3>
         <div class="payment-icons">
-            <button type="button">VISA</button>
-            <button type="button">MasterCard</button>
-            <button type="button">PayPal</button>
-            <button type="button">Google Pay</button>
-            <div id="gpay"></div>
+            <img src="assets/img/square.png" alt="Square">
+            <img src="assets/img/stripe-power.svg" alt="Stripe">
+            <img src="assets/img/PayPal-icon.png" alt="PayPal">
+            <img src="assets/img/gpay.png" alt="Google Pay">
         </div>
     </div>
     <br>
     <div class="checkout-footer">
         <form action="billing.php" method="get">
-            <button type="submit">CHECKOUT NOW</button>
+            <button type="submit" class="btn btn-primary">CHECKOUT NOW</button>
         </form>
 
     </div>
@@ -219,12 +218,5 @@ if (!empty($_SESSION['cart'])) {
       'total' => number_format((float)($_SESSION['total'] ?? 0), 2, '.', ''),
   ], JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT); ?>;
 </script>
-
-<!-- Local Google Pay Script -->
-<script src="gpay.js"></script>
-<!-- Google Pay JavaScript Library -->
-<script async src="https://pay.google.com/gp/p/js/pay.js" onload="onGooglePayLoaded()"></script>
-
-
 </body>
 </html>
