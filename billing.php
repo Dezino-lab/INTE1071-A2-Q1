@@ -155,6 +155,8 @@ $paymentStatus = $_GET['payment'] ?? '';
 <div class="cart-container" style="font-family: sans-serif; margin: 20px;">
     <?php if ($paymentStatus === 'success'): ?>
         <p style="padding: 12px; background: #dff0d8; color: #3c763d;">Payment completed successfully. Thank you for your order.</p>
+    <?php elseif ($paymentStatus === 'square_success'): ?>
+        <p style="padding: 12px; background: #dff0d8; color: #3c763d;">Square checkout completed. Thank you for your order.</p>
     <?php elseif ($paymentStatus === 'cancelled'): ?>
         <p style="padding: 12px; background: #fcf8e3; color: #8a6d3b;">Payment was cancelled. Your cart is still available.</p>
     <?php endif; ?>
@@ -247,6 +249,9 @@ $paymentStatus = $_GET['payment'] ?? '';
         <div class="payment-icons">
             <form action="checkout.php" method="post" style="padding: 0; margin: 0;">
                 <button type="submit">Pay with Stripe</button>
+            </form>
+            <form action="square_checkout.php" method="post" style="padding: 0; margin: 0;">
+                <button type="submit">Pay with Square</button>
             </form>
             <button type="button">MasterCard</button>
             <form action="<?php echo htmlspecialchars(PAYPAL_URL, ENT_QUOTES, 'UTF-8'); ?>" method="post" style="padding: 0; margin: 0;">
