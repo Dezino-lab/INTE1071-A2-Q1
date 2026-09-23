@@ -137,8 +137,12 @@ $paymentStatus = $_GET['payment'] ?? '';
         }
         .payment-icons form {
             margin: 0;
+            flex: 0 0 150px;
+            width: 150px;
+            display: flex;
         }
         .payment-button {
+            display: block;
             width: 150px;
             height: 70px;
             padding: 8px;
@@ -151,6 +155,10 @@ $paymentStatus = $_GET['payment'] ?? '';
             height: 100%;
             object-fit: contain;
         }
+        .payment-icons #gpay {
+            flex: 0 0 150px;
+            width: 150px;
+        }
         @media (max-width: 600px) {
             .billing-row {
                 display: block;
@@ -158,6 +166,9 @@ $paymentStatus = $_GET['payment'] ?? '';
             }
             .billing-field {
                 margin-bottom: 15px;
+            }
+            .payment-icons {
+                justify-content: center;
             }
         }
     </style>
@@ -221,22 +232,22 @@ $paymentStatus = $_GET['payment'] ?? '';
         <div class="billing-row">
             <div class="billing-field">
                 <label for="firstname">First name:</label>
-                <input id="firstname" type="text" name="firstname" required>
+                <input id="firstname" type="text" name="firstname" value="<?php echo htmlspecialchars($billing['firstname'] ?? '', ENT_QUOTES, 'UTF-8'); ?>" required>
             </div>
             <div class="billing-field">
                 <label for="lastname">Last name:</label>
-                <input id="lastname" type="text" name="lastname" required>
+                <input id="lastname" type="text" name="lastname" value="<?php echo htmlspecialchars($billing['lastname'] ?? '', ENT_QUOTES, 'UTF-8'); ?>" required>
             </div>
         </div>
 
         <div class="billing-row">
             <div class="billing-field">
                 <label for="username">Username:</label>
-                <input id="username" type="text" name="username" required>
+                <input id="username" type="text" name="username" value="<?php echo htmlspecialchars($billing['username'] ?? '', ENT_QUOTES, 'UTF-8'); ?>" required>
             </div>
             <div class="billing-field">
                 <label for="email">Email (Optional):</label>
-                <input id="email" type="email" name="email">
+                <input id="email" type="email" name="email" value="<?php echo htmlspecialchars($billing['email'] ?? '', ENT_QUOTES, 'UTF-8'); ?>">
             </div>
         </div>
 
@@ -244,43 +255,43 @@ $paymentStatus = $_GET['payment'] ?? '';
         <div class="billing-row">
             <div class="billing-field billing-field--wide">
                 <label for="address">Address:</label>
-                <input id="address" type="text" name="address" required>
+                <input id="address" type="text" name="address" value="<?php echo htmlspecialchars($billing['address'] ?? '', ENT_QUOTES, 'UTF-8'); ?>" required>
             </div>
             <div class="billing-field">
                 <label for="address2">Address 2 (Optional):</label>
-                <input id="address2" type="text" name="address2">
+                <input id="address2" type="text" name="address2" value="<?php echo htmlspecialchars($billing['address2'] ?? '', ENT_QUOTES, 'UTF-8'); ?>">
             </div>
         </div>
 
         <div class="billing-row">
             <div class="billing-field billing-field--wide">
                 <label for="city">City/Suburb:</label>
-                <input id="city" type="text" name="city" required>
+                <input id="city" type="text" name="city" value="<?php echo htmlspecialchars($billing['city'] ?? '', ENT_QUOTES, 'UTF-8'); ?>" required>
             </div>
             <div class="billing-field">
                 <label for="country">Country:</label>
                 <select id="country" name="country" required>
-                    <option value="" disabled selected>Choose...</option>
-                    <option value="AU">Australia</option>
+                    <option value="" disabled <?php echo empty($billing['country']) ? 'selected' : ''; ?>>Choose...</option>
+                    <option value="AU" <?php echo ($billing['country'] ?? '') === 'AU' ? 'selected' : ''; ?>>Australia</option>
                 </select>
             </div>
             <div class="billing-field">
                 <label for="state">State:</label>
                 <select id="state" name="state" required>
-                    <option value="" disabled selected>Choose...</option>
-                    <option value="ACT">ACT</option>
-                    <option value="NSW">NSW</option>
-                    <option value="NT">NT</option>
-                    <option value="QLD">QLD</option>
-                    <option value="SA">SA</option>
-                    <option value="TAS">TAS</option>
-                    <option value="WA">WA</option>
-                    <option value="VIC">VIC</option>
+                    <option value="" disabled <?php echo empty($billing['state']) ? 'selected' : ''; ?>>Choose...</option>
+                    <option value="ACT" <?php echo ($billing['state'] ?? '') === 'ACT' ? 'selected' : ''; ?>>ACT</option>
+                    <option value="NSW" <?php echo ($billing['state'] ?? '') === 'NSW' ? 'selected' : ''; ?>>NSW</option>
+                    <option value="NT" <?php echo ($billing['state'] ?? '') === 'NT' ? 'selected' : ''; ?>>NT</option>
+                    <option value="QLD" <?php echo ($billing['state'] ?? '') === 'QLD' ? 'selected' : ''; ?>>QLD</option>
+                    <option value="SA" <?php echo ($billing['state'] ?? '') === 'SA' ? 'selected' : ''; ?>>SA</option>
+                    <option value="TAS" <?php echo ($billing['state'] ?? '') === 'TAS' ? 'selected' : ''; ?>>TAS</option>
+                    <option value="WA" <?php echo ($billing['state'] ?? '') === 'WA' ? 'selected' : ''; ?>>WA</option>
+                    <option value="VIC" <?php echo ($billing['state'] ?? '') === 'VIC' ? 'selected' : ''; ?>>VIC</option>
                 </select>
             </div>
             <div class="billing-field">
                 <label for="zip">Zip:</label>
-                <input id="zip" type="text" name="zip" required>
+                <input id="zip" type="text" name="zip" value="<?php echo htmlspecialchars($billing['zip'] ?? '', ENT_QUOTES, 'UTF-8'); ?>" required>
             </div>
         </div>
 
@@ -344,8 +355,8 @@ $paymentStatus = $_GET['payment'] ?? '';
                 <button type="submit" name="submit" class="payment-button" aria-label="Pay with PayPal">
                     <img src="assets/img/PayPal.png" alt="Pay with PayPal">
                 </button>
-                <div id="gpay"></div>
             </form>
+            <div id="gpay"></div>
         </div>
         <form action="cart.php" method="get">
             <button type="submit" style="padding: 10px 20px; font-size: 16px;">Return to Cart</button>

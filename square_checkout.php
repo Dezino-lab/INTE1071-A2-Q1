@@ -22,6 +22,8 @@ if (!$cartItems) {
     exit;
 }
 
+$billing = $_SESSION['billing'] ?? [];
+
 $lineItems = [];
 foreach ($cartItems as $item) {
     $price = (float) ($item['price'] ?? 0);
@@ -55,8 +57,31 @@ $payload = [
     ],
     'checkout_options' => [
         'redirect_url' => 'http://localhost/INTE1071-A2-Q1/billing.php?payment=square_success',
+        'ask_for_shipping_address' => true,
     ],
 ];
+
+$buyerAddress = [
+    'first_name' => (string) ($billing['firstname'] ?? ''),
+    'last_name' => (string) ($billing['lastname'] ?? ''),
+    'address_line_1' => (string) ($billing['address'] ?? ''),
+    'locality' => (string) ($billing['city'] ?? ''),
+    'administrative_district_level_1' => (string) ($billing['state'] ?? ''),
+    'postal_code' => (string) ($billing['zip'] ?? ''),
+    'country' => (string) ($billing['country'] ?? ''),
+];
+
+if (!empty($billing['address2'])) {
+    $buyerAddress['address_line_2'] = (string) $billing['address2'];
+}
+
+$payload['pre_populated_data'] = [];
+if (!empty($billing['email']) && filter_var($billing['email'], FILTER_VALIDATE_EMAIL)) {
+    $payload['pre_populated_data']['buyer_email'] = $billing['email'];
+}
+if ($buyerAddress['address_line_1'] !== '' && $buyerAddress['locality'] !== '') {
+    $payload['pre_populated_data']['buyer_address'] = $buyerAddress;
+}
 
 $curl = curl_init('https://connect.squareupsandbox.com/v2/online-checkout/payment-links');
 curl_setopt_array($curl, [
