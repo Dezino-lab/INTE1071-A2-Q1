@@ -217,6 +217,8 @@ $paymentStatus = $_GET['payment'] ?? '';
         <p style="padding: 12px; background: #dff0d8; color: #3c763d;">Square checkout completed. Thank you for your order.</p>
     <?php elseif ($paymentStatus === 'cancelled'): ?>
         <p style="padding: 12px; background: #fcf8e3; color: #8a6d3b;">Payment was cancelled. Your cart is still available.</p>
+    <?php else: ?>
+        <p style="padding: 12px; background: #fcf8e3; color: #9e3422;">Payment failed. Please retry your payment. Your cart is still available.</p>
     <?php endif; ?>
     <form id="billing-form" action="billing.php" method="POST">
         

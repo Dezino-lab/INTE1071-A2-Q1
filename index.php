@@ -82,7 +82,7 @@
                         <div class="btn-group">
                             <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
                                 Sort Products &nbsp;
-      <span class="caret"></span>
+      <span class="products"></span>
                             </button>
                             <ul class="dropdown-menu">
                                 <li><a href="#">By Price Low</a></li>
@@ -104,7 +104,6 @@
                             <div class="caption">
                                 <h3><a href="#">Bronton </a></h3>
                                 <p>Price : <strong>$ 3000</strong>  </p>
-                                
                                 <p><a href="add_to_cart.php?id=001&name=Bronton&price=3000.00" class="btn btn-success">Add To Cart</a></p>
                             </div>
                         </div>
@@ -116,8 +115,6 @@
                             <div class="caption">
                                 <h3><a href="#">E-BMX </a></h3>
                                 <p>Price : <strong>$ 2000</strong>  </p>
-                                
-                                
                                 <p><a href="add_to_cart.php?id=002&name=E-BMX&price=2000.00" class="btn btn-success">Add To Cart</a></p>
                             </div>
                         </div>
@@ -129,8 +126,6 @@
                             <div class="caption">
                                 <h3><a href="#">F-65 </a></h3>
                                 <p>Price : <strong>$ 700</strong>  </p>
-                                
-                                
                                 <p><a href="add_to_cart.php?id=003&name=F-65&price=700.00" class="btn btn-success">Add To Cart</a></p>
                             </div>
                         </div>
