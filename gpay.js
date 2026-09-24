@@ -198,7 +198,8 @@ const baseRequest = {
    * @returns {object} transaction info, suitable for use as transactionInfo property of PaymentDataRequest
    */
   //8.3 Part 2  
-// Transaction info using the dynamically fetched total from PHP sessions
+
+  // Transaction info using the dynamically fetched total from PHP sessions
 // Total cart price
 function getCartData() {
     return window.cartData || { items: [], total: "0.00" };
@@ -252,6 +253,7 @@ function getCartData() {
       // handle the response
       processPayment(paymentData)
       .then(function() {
+        window.location.href = "billing.php?payment=success"
         resolve({transactionState: 'SUCCESS'});
       })
       .catch(function() {
