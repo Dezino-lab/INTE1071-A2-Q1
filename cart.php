@@ -121,14 +121,7 @@ if (!empty($_SESSION['cart'])) {
                             </a></li>
                         </ul>
                     </li>
-                </ul>
-                <form class="navbar-form navbar-right" role="search">
-                    <div class="form-group">
-                        <input type="text" placeholder="Enter Keyword Here ..." class="form-control">
-                    </div>
-                    &nbsp; 
-                    <button type="submit" class="btn btn-primary">Search</button>
-                </form>
+                </ul> 
             </div>
             <!-- /.navbar-collapse -->
         </div>

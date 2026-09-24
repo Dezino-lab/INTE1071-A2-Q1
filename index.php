@@ -56,11 +56,8 @@
                     </li>
                 </ul>
                 <form class="navbar-form navbar-right" role="search">
-                    <div class="form-group">
-                        <input type="text" placeholder="Enter Keyword Here ..." class="form-control">
-                    </div>
                     &nbsp; 
-                    <button type="submit" class="btn btn-primary">Search</button>
+                    <button type="button" class="btn btn-primary" onclick="window.location.href='cart.php'">Cart</button>
                 </form>
             </div>
             <!-- /.navbar-collapse -->
@@ -81,7 +78,7 @@
                 <!-- /.div -->
                 <div class="row">
                     <div class="btn-group alg-right-pad">
-                        <button type="button" class="btn btn-default"><strong>1235  </strong>items</button>
+                        <button type="button" class="btn btn-default"><strong>3 </strong>items</button>
                         <div class="btn-group">
                             <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown">
                                 Sort Products &nbsp;

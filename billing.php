@@ -207,13 +207,6 @@ $paymentStatus = $_GET['payment'] ?? '';
                         </ul>
                     </li>
                 </ul>
-                <form class="navbar-form navbar-right" role="search">
-                    <div class="form-group">
-                        <input type="text" placeholder="Enter Keyword Here ..." class="form-control">
-                    </div>
-                    &nbsp; 
-                    <button type="submit" class="btn btn-primary">Search</button>
-                </form>
             </div>
         </div>
     </nav>
@@ -358,6 +351,7 @@ $paymentStatus = $_GET['payment'] ?? '';
             </form>
             <div id="gpay"></div>
         </div>
+        <br>
         <form action="cart.php" method="get">
             <button type="submit" style="padding: 10px 20px; font-size: 16px;">Return to Cart</button>
         </form>
