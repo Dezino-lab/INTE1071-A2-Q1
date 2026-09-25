@@ -152,7 +152,7 @@ if (!empty($_SESSION['cart'])) {
                     echo "<tr>";
                     echo "<td><img src='assets/img/{$item['name']}.jpg' width='150'></td>";
                     echo "<td>{$item['name']}</td>";
-                    echo "<td>ID: {$item['id']}</td>";
+                    echo '<td>' . nl2br(htmlspecialchars($item['description'] ?? 'Description unavailable.', ENT_QUOTES, 'UTF-8')) . '</td>';
                     echo "<td>\${$item['price']}</td>";
                     echo "<td><input type='number' name='quantities[{$index}]' value='{$quantity}' min='1' class='qty-input'></td>";
                     echo "<td>\$" . number_format($lineTotal, 2) . "</td>";
