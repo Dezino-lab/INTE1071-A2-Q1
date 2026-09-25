@@ -307,7 +307,7 @@ $paymentStatus = $_GET['payment'] ?? '';
     <div class="payment-section" style="font-family: sans-serif; margin: 20px;">
         <h2>Select Payment Option</h2>
         <div class="payment-icons">
-            <form action="checkout.php" method="post" style="padding: 0; margin: 0;">
+            <form action="stripe-checkout.php" method="post" style="padding: 0; margin: 0;">
                 <button type="submit" class="payment-button" aria-label="Pay with Stripe">
                     <img src="assets/img/Stripe.png" alt="Pay with Stripe">
                 </button>

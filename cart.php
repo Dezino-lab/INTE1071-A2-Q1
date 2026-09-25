@@ -198,18 +198,5 @@ if (!empty($_SESSION['cart'])) {
 <script>
   window.cartTotalFromPHP = "<?php echo number_format($_SESSION['total'], 2, '.', ''); ?>";
 </script>
-
-<script>
-  window.cartData = <?php echo json_encode([
-      'items' => array_map(function ($item) {
-          return [
-              'label' => $item['name'],
-              'type'  => 'LINE_ITEM',
-              'price' => number_format((float)$item['price'], 2, '.', ''),
-          ];
-      }, $_SESSION['cart'] ?? []),
-      'total' => number_format((float)($_SESSION['total'] ?? 0), 2, '.', ''),
-  ], JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT); ?>;
-</script>
 </body>
 </html>
